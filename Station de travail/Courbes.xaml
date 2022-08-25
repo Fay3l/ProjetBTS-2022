@@ -1,0 +1,53 @@
+﻿<Window x:Class="Station_de_travail.Window_Courbes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        xmlns:local="clr-namespace:Station_de_travail"
+        mc:Ignorable="d"
+        Title="Courbes" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TabControl Name="TAB">
+            <TabItem Header="CO">
+                <oxy:PlotView Name="ModelCO"></oxy:PlotView>
+            </TabItem>
+            <TabItem Header="CO2">
+                <oxy:PlotView Name="ModelCO2"></oxy:PlotView>
+            </TabItem>
+            <TabItem Header="Luminosité">
+                <oxy:PlotView Name="ModelLux"></oxy:PlotView>
+            </TabItem>
+            <TabItem Header="Température">
+                <oxy:PlotView Name="ModelTEM"></oxy:PlotView>
+            </TabItem>
+            <TabItem Header="Humidité au sol">
+                <oxy:PlotView Name="ModelLP"></oxy:PlotView>
+            </TabItem>
+            <TabItem Header="Pression ambiante">
+                <oxy:PlotView Name="ModelPRES"></oxy:PlotView>
+            </TabItem>
+            <TabItem Header="Humidité relative">
+                <oxy:PlotView Name="ModelHUM"></oxy:PlotView>
+            </TabItem>
+            
+        </TabControl>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Column="1" Grid.Row="1" Click="Button_Click_Imprimer" >Imprimer</Button>
+            <Button Grid.Column="1" Grid.Row="3" Click="Button_Click" >Retour</Button>
+        </Grid>
+    </Grid>
+</Window>

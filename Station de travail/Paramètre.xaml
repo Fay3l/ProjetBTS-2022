@@ -1,0 +1,116 @@
+﻿<Window x:Class="Station_de_travail.Window_Paramètre"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:Station_de_travail" xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:ui="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStyle="None"
+        Title="Paramètre" Height="450" Width="800">
+    <Window.Resources>
+
+        <Style x:Key="highlightValidationError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="DockPanel.Background" Value="Red"></Setter>
+                    <Setter Property="Control.ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ButtonValiddationError" TargetType="{x:Type Button}">
+            <Setter Property="IsEnabled" Value="False" />
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding ElementName=AdresseIp_Text, Path=(Validation.HasError)}" Value="false" />
+                        <Condition Binding="{Binding ElementName=Port_Text, Path=(Validation.HasError)}" Value="false" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Identification:</TextBlock>
+            <TextBox Name="Identification_Text"  Grid.Row="1" Grid.Column="1" TextAlignment="Center" ></TextBox>
+            <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Mot de passe:</TextBlock>
+            <PasswordBox Name="Password_Text" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center"></PasswordBox>
+            <TextBlock Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">Adresse IP:</TextBlock>
+            <TextBox Name="AdresseIp_Text" Grid.Row="5" Grid.Column="1"  Style="{StaticResource highlightValidationError}" hc:ThemeManager.RequestedTheme="Dark" TextAlignment="Center" PreviewTextInput="AdresseIp_Text_PreviewTextInput" >
+                <TextBox.Text>
+                    <Binding Path="IPAddress" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:IPv4Validation />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center">Port d'écoute:</TextBlock>
+            <TextBox Name="Port_Text" Grid.Row="7" Grid.Column="1" TextAlignment="Center" Style="{StaticResource highlightValidationError}" hc:ThemeManager.RequestedTheme="Dark" PreviewTextInput="Port_Text_PreviewTextInput">
+                <TextBox.Text>
+                    <Binding Path="Port" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:PortValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <ui:ToggleSwitch Name="Toggle" Grid.Row="8" Grid.Column="1"  HorizontalAlignment="Right" OnContent="Dark" OffContent="Light" Toggled="Toggle_Toggled" ></ui:ToggleSwitch>
+            <TextBlock Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center">Theme mode :</TextBlock>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ui:AppBarButton Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Label="Enregistrer" Icon="Save"  Style="{StaticResource ButtonValiddationError}"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="Valider_Click" >
+
+            </ui:AppBarButton>
+            <Button Grid.Row="5" Grid.Column="1" Click="Retour_Click" >Retour</Button>
+        </Grid>
+    </Grid>
+</Window>

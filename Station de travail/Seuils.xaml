@@ -1,0 +1,273 @@
+﻿<Window x:Class="Station_de_travail.Window_Seuils"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Station_de_travail"
+        
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        mc:Ignorable="d"
+        Title="Seuils"  Height="460" Width="810">
+    <Window.Resources>
+        <Style x:Key="highlightValidationError" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="DockPanel.Background" Value="Red"></Setter>
+                    <Setter Property="Control.ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition> 
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">CO (ppm):</TextBlock>
+            </Border>
+           
+            <TextBlock VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinCO"  Margin="0,0,0,4" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}"  >
+                <TextBox.Text>
+                    <Binding Path="MinValue"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="12000"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                    
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Name="MaxCO" Margin="0,0,5,4" Grid.Column="3" Grid.Row="1" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}" >
+                <TextBox.Text>
+                    <Binding Path="MaxValue"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="12000"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
+            
+            <Border Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="3" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">CO2 (ppm):</TextBlock>
+            </Border>
+            <TextBlock VerticalAlignment="Top" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinCO2" Margin="0,0,0,4" Grid.Column="2" Grid.Row="3" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}" >
+                <TextBox.Text>
+                    <Binding Path="MinValueCO2"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="1200"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Name="MaxCO2" Margin="0,0,5,4" Grid.Column="3" Grid.Row="3" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text>
+                    <Binding Path="MaxValueCO2"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="1200"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+
+            <Border Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="5" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="1" Grid.Row="5" VerticalAlignment="Center">Humidité au sol:</TextBlock>
+            </Border>
+            <TextBlock VerticalAlignment="Top" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinHUMSOL" Margin="0,0,0,4" Grid.Column="2" Grid.Row="5" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text>
+                    <Binding Path="MinValueLP"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="100"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Name="MaxHUMSOL" Margin="0,0,5,4" Grid.Column="3" Grid.Row="5" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text>
+                    <Binding Path="MaxValueLP"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="100"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+
+            <Border Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="7" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="1" Grid.Row="7" VerticalAlignment="Center">Luminosité (lux):</TextBlock>
+            </Border>
+            <TextBlock VerticalAlignment="Top" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="3" Grid.Row="7" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinLUX" Margin="0,0,0,4" Grid.Column="2" Grid.Row="7" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}" >
+                <TextBox.Text>
+                    <Binding Path="MinValueLUX" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MinValeur="200" MaxValeur="2000"></local:ValeurValidation>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Name="MaxLUX" Margin="0,0,5,4" Grid.Column="3" Grid.Row="7" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}" >
+                <Binding Path="MaxValueLUX" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:ValeurValidation MaxValeur="2000"></local:ValeurValidation>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            
+            
+            
+
+
+            <Border Grid.ColumnSpan="3" Grid.Column="5" Grid.Row="1" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="5" Grid.Row="1" VerticalAlignment="Center">Température (°C):</TextBlock>
+            </Border>
+            <TextBlock VerticalAlignment="Top" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinTEM" Margin="0,0,0,4" Grid.Column="6" Grid.Row="1"  VerticalAlignment="Bottom"  Style="{StaticResource highlightValidationError}" PreviewTextInput="ValueText_PreviewTextInput">
+                <TextBox.Text >
+                    <Binding Path="MinValueTC"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="60"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
+            <TextBox Name="MaxTEM" Margin="0,0,5,4" Grid.Column="7" Grid.Row="1" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}" >
+                <TextBox.Text >
+                    <Binding Path="MaxValueTC"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="60"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+
+            <Border Grid.ColumnSpan="3" Grid.Column="5" Grid.Row="3" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="5" Grid.Row="3" VerticalAlignment="Center">Pression (Pa):</TextBlock>
+            </Border>
+            <TextBlock VerticalAlignment="Top" Grid.Column="6" Grid.Row="3" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="7" Grid.Row="3" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinPRE" Margin="0,0,0,4" Grid.Column="6" Grid.Row="3" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text>
+                    <Binding Path="MinValuePRES" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="2000"/> 
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Name="MaxPRE" Margin="0,0,5,4" Grid.Column="7" Grid.Row="3" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text>
+                    <Binding Path="MaxValuePRES" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="2000"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+
+            <Border Grid.ColumnSpan="3" Grid.Column="5" Grid.Row="5" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="5"  Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center">Humidité relative (%):</TextBlock>
+            </Border>
+            <TextBlock VerticalAlignment="Top" Grid.Column="6" Grid.Row="5" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="7" Grid.Row="5" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinHUMRE" Margin="0,0,0,4" Grid.Column="6" Grid.Row="5" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text >
+                    <Binding Path="MinValueHUM"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="100"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
+            <TextBox Name="MaxHUMRE" Margin="0,0,5,4" Grid.Column="7" Grid.Row="5" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text >
+                    <Binding Path="MaxValueHUM"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="100"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <Border Grid.ColumnSpan="3" Grid.Column="5" Grid.Row="7" BorderThickness="3" CornerRadius="2" BorderBrush="Black">
+                <TextBlock Grid.Column="5" Grid.Row="5" VerticalAlignment="Center">Batterie (%):</TextBlock>
+            </Border>
+            <TextBlock VerticalAlignment="Top" Grid.Column="6" Grid.Row="7" HorizontalAlignment="Center">Min</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Column="7" Grid.Row="7" HorizontalAlignment="Center">Max</TextBlock>
+            <TextBox Name="MinBAT" Margin="0,0,0,4" Grid.Column="6" Grid.Row="7" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text >
+                    <Binding Path="MinValueBAT"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="100"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Name="MaxBAT" Margin="0,0,5,4" Grid.Column="7" Grid.Row="7" VerticalAlignment="Bottom" PreviewTextInput="ValueText_PreviewTextInput" Style="{StaticResource highlightValidationError}">
+                <TextBox.Text >
+                    <Binding Path="MaxValueBAT"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:ValeurValidation MaxValeur="100"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="12*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Click="Retour_Click">Retour</Button>
+            
+            <ui:AppBarButton Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Label="Enregistrer" Icon="Save"   HorizontalAlignment="Center" VerticalAlignment="Center" Click="Enregistrer_Click" >
+            </ui:AppBarButton>
+        </Grid>
+        
+    </Grid>
+</Window>
